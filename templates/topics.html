@@ -4,16 +4,24 @@
     <h3>Topics</h3>
     <dl>
         {% for topic in topics %}
-        <dt id="t{{topic.id}}">
-            <a href="http://localhost:3000/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}">{{ topic.orig_label }}</a>
-        </dt>
-        <dd>
-            <p>
-                {{ topic.terms_top }}<br>
-                <a href="#">more &raquo;</a>
-            </p>
-            <p class="hidden full-list">{{topic.terms_all}}</p>
-        </dd>
+        <div class="row">
+            <div class="col-md-8">
+                <dt id="t{{topic.id}}">
+                                <a href="http://localhost:3000/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}">{{ topic.orig_label }}</a>
+                            </dt>
+                            <dd>
+                                <p>
+                                    {{ topic.terms_top }}<br>
+                                    <a href="#">more &raquo;</a>
+                                </p>
+                                <p class="hidden full-list">{{topic.terms_all}}</p>
+                            </dd>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-default" role="button" href="#">Save New Label</a>
+                            <a class="btn btn-default" role="button" href="#">Delete</a>
+                        </div>
+            </div>
         {% endfor %}
     </dl>
 </div>
