@@ -25,5 +25,5 @@ def show_topics(page=1):
     paged_response = Topic.query.paginate(page, 25, True)
     topics = paged_response.items
 
-    return render_template('index.html', topics=topics)
+    return render_template('topics.html', topics=topics, paged_response=paged_response)
     
