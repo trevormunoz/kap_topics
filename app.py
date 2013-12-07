@@ -22,7 +22,7 @@ def index():
 @app.route('/topics')
 @app.route('/topics/<int:page>')
 def show_topics(page=1):
-    paged_response = Topic.query.order_by(Topic.id.asc()).paginate(page, 25, True)
+    paged_response = Topic.query.order_by(Topic.id.asc()).paginate(page, 10, True)
     topics = paged_response.items
 
     return render_template('topics.html', topics=topics, paged_response=paged_response)
