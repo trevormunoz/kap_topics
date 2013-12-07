@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/kap'
+app.config.from_object('config')
 db = SQLAlchemy(app)
 
 class Topic(db.Model):
