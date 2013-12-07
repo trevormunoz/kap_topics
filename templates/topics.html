@@ -4,8 +4,13 @@
     <h3>Topics</h3>
     <dl>
         {% for topic in topics %}
-        <dt><a href="http://localhost:3000/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}">{{ topic.orig_label }}</a></dt>
-        <dd>{{ topic.terms_top }}</dd>
+        <dt id="t{{topic.id}}">
+            <a href="http://localhost:3000/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}">{{ topic.orig_label }}</a>
+        </dt>
+        <dd>
+            <p>{{ topic.terms_top }}</p>
+            <p class="hidden">{{topic.terms_all}}</p>
+        </dd>
         {% endfor %}
     </dl>
 </div>
