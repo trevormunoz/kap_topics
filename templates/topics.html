@@ -8,7 +8,10 @@
             <a href="http://localhost:3000/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}">{{ topic.orig_label }}</a>
         </dt>
         <dd>
-            <p>{{ topic.terms_top }}</p>
+            <p>
+                {{ topic.terms_top }}<br>
+                <a href="#">more &raquo;</a>
+            </p>
             <p class="hidden full-list">{{topic.terms_all}}</p>
         </dd>
         {% endfor %}
