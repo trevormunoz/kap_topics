@@ -17,7 +17,7 @@ class Topic(db.Model):
 
 @app.route('/')
 def index():
-    return "Hello, world!"
+    return render_template('index.html')
 
 @app.route('/topics')
 @app.route('/topics/<int:page>')
