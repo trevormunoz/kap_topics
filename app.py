@@ -1,5 +1,8 @@
 from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.wtf import Form
+from wtforms import TextField
+from wtforms.validators import Required
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -14,6 +17,9 @@ class Topic(db.Model):
 
     def __repr__(self):
         return '<Topic {0}>'.format(self.orig_label)
+
+class TopicForm(Form):
+    supplied_label  = TextField('supplied_label', validators = [Required()])
 
 @app.route('/')
 def index():
