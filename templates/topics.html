@@ -31,11 +31,12 @@
                         <a href="http://localhost:3000/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}">see associated documents &raquo;</a>
                 </dt>
                             <dd>
-                                <p>
-                                    {{ topic.terms_top }} &nbsp;
-                                    <a href="#">more terms &raquo;</a>
-                                </p>
-                                <p class="hidden full-list">{{topic.terms_all}}</p>
+                                <h4>
+                                    {{ topic.terms_top }}
+                                </h4>
+                                <a class="showMore" href="#" data-target="list-{{topic.id}}">more terms &raquo;</a>
+                                <p class="full-list" id="list-{{topic.id}}">{{topic.terms_all}}</p>
+                                <a class="showLess" href="#">&laquo; fewer terms</a>
                             </dd>
                         </div>
                         <div class="col-md-4">
