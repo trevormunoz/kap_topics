@@ -9,5 +9,15 @@
         {% endfor %}
     </dl>
 </div>
-
+<div class="container">
+    <ul class="pagination pagination-lg pull-right">
+        {% for page in paged_response.iter_pages(left_edge=2, left_current=2, right_current=6, right_edge=2) %}
+        {% if page %}
+        <li><a href="/topics/{{page}}">{{page}}</a></li>
+        {% else %}
+        <li><span class="ellipsis">…</span></li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
