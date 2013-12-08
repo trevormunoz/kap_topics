@@ -37,7 +37,7 @@
                        {% endif %}
                        </form>
                        {% endblock %}
-                       <a href="http://54.221.196.204/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}" data-step="5" data-intro="You can click here to see all the pages of letters associated with this topic" data-position="top">see associated documents &raquo;</a>
+                       <a href="{{config['AWS_URI']}}/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}" data-step="5" data-intro="You can click here to see all the pages of letters associated with this topic" data-position="top">see associated documents &raquo;</a>
                    </dt>
                     <dd>
                         <h4 data-step="3" data-intro="The list of words represents the terms most strongly associated with this topic. Hopefully, this grouping of terms 
