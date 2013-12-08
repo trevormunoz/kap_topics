@@ -1,7 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.wtf import Form
-from wtforms import TextField
+from wtforms import TextField, HiddenField
 from wtforms.validators import Required
 
 app = Flask(__name__)
@@ -20,16 +20,32 @@ class Topic(db.Model):
 
 class TopicForm(Form):
     supplied_label  = TextField('supplied_label', validators = [Required()])
+    topic_id = HiddenField('id')
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/topics')
-@app.route('/topics/<int:page>')
+@app.route('/topics', methods=['GET', 'POST'])
+@app.route('/topics/<int:page>', methods=['GET', 'POST'])
 def show_topics(page=1):
     paged_response = Topic.query.order_by(Topic.id.asc()).paginate(page, 10, True)
     topics = paged_response.items
 
-    return render_template('topics.html', topics=topics, paged_response=paged_response)
+    form = TopicForm()
+    if form.validate_on_submit():
+        existing_topic = Topic.query.get(form.topic_id.data)
+        existing_topic.supplied_label = form.supplied_label.data
+        db.session.commit()
+
+        flash(\
+            '<strong>{0}</strong> submitted as a new label for <a class="alert-link" href="#t{1}"> Topic {2}</a>'\
+            .format(\
+            form.supplied_label.data,\
+            existing_topic.id,\
+            existing_topic.id))
+        
+        return redirect('/topics/{0}'.format(page))
+
+    return render_template('topics.html', topics=topics, paged_response=paged_response, form=form)
     

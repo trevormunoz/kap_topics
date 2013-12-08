@@ -19,10 +19,15 @@
         {% endblock %}
     </head>
     <body>
-        <div id="messages">
-          {% for category, msg in get_flashed_messages(with_categories=true) %}
-            <p class="message flash-{{ category }}">{{ msg }}</p>
-          {% endfor %}
+        <div class="container">
+                  {% for msg in get_flashed_messages() %}
+                  {% if msg != None %}
+                  <div id="messages" class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <p class="message">{{ msg | safe }}</p>
+                    </div>
+                    {% endif %}
+                  {% endfor %}
         </div>
 
         {% block content %}
@@ -31,6 +36,7 @@
         {% block foot %}
         <!-- Scripts -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="/static/js/vendor/alert.js"></script>
         <script src="/static/js/main.js"></script>
          {% endblock %}
 

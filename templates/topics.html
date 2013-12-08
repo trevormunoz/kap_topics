@@ -6,31 +6,45 @@
     </div>
     <p class="lead">Supply new labels for automatically-generated "topics" (if possible) or mark for deletion.</p>
     <dl>
-        {% for topic in topics %}
-        <div id="t{{topic.id}}" class="row topic">
-            <div class="col-md-8">
-                <dt>
-                    {% block form scoped %}
-                    <h4>{{topic.orig_label}}</h4>
-                    <p><small>It appears a form failed to load. You may want to refresh the page.</small></p>
-                    {% endblock %}
-                    <a href="http://localhost:3000/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}">see associated documents &raquo;</a>
-                </dt>
-                            <dd>
-                                <h4>
-                                    {{ topic.terms_top }}
-                                </h4>
-                                <a class="showMore" href="#" data-target="list-{{topic.id}}">more terms &raquo;</a>
-                                <p class="full-list" id="list-{{topic.id}}">{{topic.terms_all}}</p>
-                                <a class="showLess" href="#">&laquo; fewer terms</a>
-                            </dd>
-                        </div>
-                        <div class="col-md-4">
-                        </div>
-            </div>
-            <hr>
-        {% endfor %}
-    </dl>
+           {% for topic in topics %}
+           <div id="t{{topic.id}}" class="row topic">
+               <div class="col-md-8">
+                   <dt>
+                       {% block form scoped %}
+                       <form class="form-horizontal" method="POST" action="">
+                       {{form.hidden_tag()}}
+                       {% if topic.supplied_label == None %}
+                       <div class="form-group">
+                           <label for="{{topic.id}}">{{ topic.orig_label }}</label>
+                           {{ form.supplied_label(class='form-control') | safe }}
+                       </div>   
+                       <button type="submit" class="btn btn-default btn-sm btn-primary">Save New Label</button>
+                        {% else %}
+                        <div class="form-group">
+                           <label for="{{topic.id}}">{{ topic.supplied_label }}</label>
+                           {{ form.supplied_label(class='form-control') | safe }}
+                       </div>   
+                       <button type="submit" class="btn btn-default btn-sm">Overwrite Label</button>
+                       {% endif %}
+                       </form>
+                       {% endblock %}
+                       <a href="http://localhost:3000/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}">see associated documents &raquo;</a>
+                   </dt>
+                    <dd>
+                        <h4>
+                            {{ topic.terms_top }}
+                        </h4>
+                        <a class="showMore" data-target="list-{{topic.id}}">more terms &raquo;</a>
+                        <p class="full-list" id="list-{{topic.id}}">{{topic.terms_all}}</p>
+                        <a class="showLess">&laquo; fewer terms</a>
+                    </dd>
+                </div>
+                <div class="col-md-4">
+                </div>
+               </div>
+               <hr>
+           {% endfor %}
+       </dl>
 </div>
 <div class="container">
     <ul class="pagination pagination-lg">
