@@ -23,3 +23,19 @@ $('.form-control').on("focus", function(){
     var topic_id = $(this).prev().attr('for');
     $(this).closest('form').find('#topic_id').val(topic_id);
 });
+
+$('.btn-danger').on("click", function(event){
+    event.preventDefault();
+    var rowId = $(this).attr('data-target');
+    var split = rowId.split('t');
+    var topic_id = split[1];
+    var sweepPromise = $.ajax({
+        type: "DELETE",
+        url: "/remove/topic/"+topic_id
+    });
+    sweepPromise.done(function(){
+        var target = "#"+rowId;
+        $(target).next('hr').remove();
+        $(target).remove();
+    });
+});
