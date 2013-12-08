@@ -29,8 +29,10 @@ $('.btn-danger').on("click", function(event){
     var rowId = $(this).attr('data-target');
     var split = rowId.split('t');
     var topic_id = split[1];
+    var postToken = $.cookie("token");
     var sweepPromise = $.ajax({
-        type: "DELETE",
+        type: "POST",
+        data: {token: postToken},
         url: "/remove/topic/"+topic_id
     });
     sweepPromise.done(function(){
