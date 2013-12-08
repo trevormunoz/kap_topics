@@ -1,8 +1,9 @@
-from flask import Flask, render_template, redirect, flash
+from flask import Flask, request, make_response, render_template, redirect, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.wtf import Form
 from wtforms import TextField, HiddenField
 from wtforms.validators import Required
+import hashlib
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -47,5 +48,16 @@ def show_topics(page=1):
         
         return redirect('/topics/{0}'.format(page))
 
-    return render_template('topics.html', topics=topics, paged_response=paged_response, form=form)
-    
+    token_value = hashlib.md5(app.config['SECRET_KEY']).hexdigest()
+    resp = make_response(render_template('topics.html', topics=topics, paged_response=paged_response, form=form))
+    resp.set_cookie('token', token_value)
+    return resp
+
+@app.route('/remove/topic/<int:topic_id>', methods=['POST'])
+def drop_topic(topic_id):
+    if request.form['token'] == hashlib.md5(app.config['SECRET_KEY']).hexdigest():
+        target_topic = Topic.query.get(topic_id)
+        db.session.delete(target_topic)
+        db.session.commit()
+        resp = make_response()
+    return resp
