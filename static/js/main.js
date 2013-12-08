@@ -2,7 +2,11 @@ $(document).ready( function() {
     $('p.full-list').hide();
     $('a.showLess').hide();
     $('.glyphicon-ok-circle').css({'color': 'green', 'font-size': '1.66em'});
-    introJs().setOptions({
+    if ( $.cookie("intro") === "yes"){
+        // Load page as normal
+    }
+    else {
+        introJs().setOptions({
         'showButtons': true,
         'showBullets': false,
         'keyboardNavigation': true,
@@ -11,7 +15,10 @@ $(document).ready( function() {
         'showStepNumbers': false
         }).oncomplete(function() {
             alert("This is the end of the introduction. Good luck!");
+        }).onexit(function(){
+            $.cookie("intro", "yes", { expires : 31 });
         }).start();
+    }
 });
 
 $('.showMore').on("click", function(event){
