@@ -21,7 +21,7 @@
                        <button type="submit" class="btn btn-default btn-sm btn-primary">Save New Label</button>
                         {% else %}
                         <div class="form-group">
-                           <label for="{{topic.id}}">{{ topic.supplied_label }}</label>
+                           <label for="{{topic.id}}">{{ topic.supplied_label }}</label>&nbsp;<span class="glyphicon glyphicon-ok-circle"></span>
                            {{ form.supplied_label(class='form-control') | safe }}
                        </div>   
                        <button type="submit" class="btn btn-default btn-sm">Overwrite Label</button>

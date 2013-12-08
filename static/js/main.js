@@ -1,6 +1,7 @@
 $(document).ready( function() {
     $('p.full-list').hide();
     $('a.showLess').hide();
+    $('.glyphicon-ok-circle').css({'color': 'green', 'font-size': '1.66em'});
 });
 
 $('.showMore').on("click", function(event){
