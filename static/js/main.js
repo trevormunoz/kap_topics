@@ -2,6 +2,16 @@ $(document).ready( function() {
     $('p.full-list').hide();
     $('a.showLess').hide();
     $('.glyphicon-ok-circle').css({'color': 'green', 'font-size': '1.66em'});
+    introJs().setOptions({
+        'showButtons': true,
+        'showBullets': false,
+        'keyboardNavigation': true,
+        'exitOnEsc': true,
+        'exitOnOverlayClick': true,
+        'showStepNumbers': false
+        }).oncomplete(function() {
+            alert("This is the end of the introduction. Good luck!");
+        }).start();
 });
 
 $('.showMore').on("click", function(event){

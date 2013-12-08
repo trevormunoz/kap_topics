@@ -1,10 +1,17 @@
 {% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="/static/css/introjs.min.css" type="text/css">
+{% endblock%}
+
 {% block content %}
 <div class=container>
     <div class="page-header">
         <h1>Topics</h1>
     </div>
-    <p class="lead">Supply new labels for automatically-generated "topics" (if possible) or mark for deletion.</p>
+    <p class="lead" data-step="1" data-intro="Topic models were created from the uncorrected OCR using the Mallet package. 
+    The point of this app is to assist our team in turning these automatically-generated topics into subject tags or headings.">
+    Supply new labels for automatically-generated "topics" (if possible) or mark for deletion.</p>
     <dl>
            {% for topic in topics %}
            <div id="t{{topic.id}}" class="row topic">
@@ -14,11 +21,13 @@
                        <form class="form-horizontal" method="POST" action="">
                        {{form.hidden_tag()}}
                        {% if topic.supplied_label == None %}
-                       <div class="form-group">
-                           <label for="{{topic.id}}">{{ topic.orig_label }}</label>
+                       <div class="form-group" data-step="6" data-intro="When you've decided on a name for the topic, enter it into this form. This will become a subject tag or heading for the associated documents.">
+                           <label for="{{topic.id}}" data-step="2" data-intro="Each topic has a machine-generated label to start" data-position="top">
+                            {{ topic.orig_label }}</label>
                            {{ form.supplied_label(class='form-control') | safe }}
                        </div>   
-                       <button type="submit" class="btn btn-default btn-sm btn-primary">Save New Label</button>
+                       <button type="submit" class="btn btn-default btn-sm btn-primary" data-step="7" data-intro="Click this button to save the label. 
+                       You can always revise it later.">Save New Label</button>
                         {% else %}
                         <div class="form-group">
                            <label for="{{topic.id}}">{{ topic.supplied_label }}</label>&nbsp;<span class="glyphicon glyphicon-ok-circle"></span>
@@ -28,19 +37,25 @@
                        {% endif %}
                        </form>
                        {% endblock %}
-                       <a href="http://localhost:3000/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}">see associated documents &raquo;</a>
+                       <a href="http://54.221.196.204/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}" data-step="5" data-intro="You can click here to see all the pages of letters associated with this topic" data-position="top">see associated documents &raquo;</a>
                    </dt>
                     <dd>
-                        <h4>
+                        <h4 data-step="3" data-intro="The list of words represents the terms most strongly associated with this topic. Hopefully, this grouping of terms 
+                        gives you some sense of one topic that the associated documents might be about." data-position="top">
                             {{ topic.terms_top }}
                         </h4>
-                        <a class="showMore" data-target="list-{{topic.id}}">more terms &raquo;</a>
+                        <a class="showMore" data-target="list-{{topic.id}}" data-step="4" data-intro="Click this link to see all the terms associated with a topic.
+                        You can hide the longer list by clicking on the link labeled '&laquo; fewer terms' "
+                        data-position="top">
+                            more terms &raquo;</a>
                         <p class="full-list" id="list-{{topic.id}}">{{topic.terms_all}}</p>
-                        <a class="showLess">&laquo; fewer terms</a>
+                        <a class="showLess">
+                            &laquo; fewer terms</a>
                     </dd>
                 </div>
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-danger btn-sm pull-right" data-target="t{{topic.id}}">Remove Topic</button>
+                    <button type="button" class="btn btn-danger btn-sm pull-right" data-target="t{{topic.id}}" data-step="8" data-intro="If a topic looks like it won't be 
+                    useful, you can delete it." data-position="left">Remove Topic</button>
                 </div>
                </div>
                <hr>
@@ -48,7 +63,8 @@
        </dl>
 </div>
 <div class="container">
-    <ul class="pagination pagination-lg">
+    <ul class="pagination pagination-lg" data-step="9" data-intro="There are 10 topics per page by default. 
+    You can page through all the topics using this navigation" data-position="top">
         {% for page in paged_response.iter_pages(left_edge=2, left_current=2, right_current=6, right_edge=2) %}
         {% if page %}
         <li><a href="/topics/{{page}}">{{page}}</a></li>
@@ -58,4 +74,9 @@
         {% endfor %}
     </ul>
 </div>
+{% endblock %}
+
+{% block foot %}
+{{ super() }}
+<script src="/static/js/vendor/intro.min.js"></script>
 {% endblock %}
