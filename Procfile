@@ -1,1 +1,1 @@
-web: gunicorn kap_topics:app
+web: gunicorn main:app
