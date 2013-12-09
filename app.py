@@ -5,7 +5,7 @@ from wtforms import TextField, HiddenField
 from wtforms.validators import Required
 import hashlib
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='')
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
