@@ -12,7 +12,6 @@ Werkzeug==0.9.4
 alembic==0.6.1
 astroid==1.0.1
 decorator==3.4.0
-git-remote-helpers==0.1.0
 gunicorn==18.0
 itsdangerous==0.23
 logilab-common==0.60.0
