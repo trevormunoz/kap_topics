@@ -27,6 +27,10 @@ class TopicForm(Form):
 def index():
     return render_template('index.html')
 
+@app.route('/robots.txt')
+def robots():
+     return app.send_static_file('robots.txt')
+
 @app.route('/topics', methods=['GET', 'POST'])
 @app.route('/topics/<int:page>', methods=['GET', 'POST'])
 def show_topics(page=1):
