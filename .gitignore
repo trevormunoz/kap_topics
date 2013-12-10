@@ -53,5 +53,5 @@ docs/_build/
 *.ipynb
 
 # exclude configuration file
-#config.py
+config.py
 
