@@ -51,7 +51,3 @@ docs/_build/
 
 # exclude IPython Notebook scripts
 *.ipynb
-
-# exclude configuration file
-config.py
-
