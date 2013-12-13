@@ -28,16 +28,17 @@
                        </div>   
                        <button type="submit" class="btn btn-default btn-sm btn-primary" data-step="7" data-intro="Click this button to save the label. 
                        You can always revise it later.">Save New Label</button>
+                       <a href="{{config['AWS_URI']}}/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}" data-step="5" data-intro="You can click here to see all the pages of letters associated with this topic" data-position="top">see associated documents &raquo;</a>
                         {% else %}
                         <div class="form-group">
                            <label for="{{topic.id}}">{{ topic.supplied_label }}</label>&nbsp;<span class="glyphicon glyphicon-ok-circle"></span>
                            {{ form.supplied_label(class='form-control') | safe }}
                        </div>   
                        <button type="submit" class="btn btn-default btn-sm">Overwrite Label</button>
+                       <a href="{{config['AWS_URI']}}/?f%5Bsubject_facet%5D%5B%5D={{ topic.supplied_label }}" data-step="5" data-intro="You can click here to see all the pages of letters associated with this topic" data-position="top">see associated documents &raquo;</a>
                        {% endif %}
                        </form>
                        {% endblock %}
-                       <a href="{{config['AWS_URI']}}/?f%5Bsubject_facet%5D%5B%5D={{ topic.orig_label }}" data-step="5" data-intro="You can click here to see all the pages of letters associated with this topic" data-position="top">see associated documents &raquo;</a>
                    </dt>
                     <dd>
                         <h4 data-step="3" data-intro="The list of words represents the terms most strongly associated with this topic. Hopefully, this grouping of terms 
